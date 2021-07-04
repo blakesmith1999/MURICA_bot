@@ -2,6 +2,7 @@ import os
 from typing import ContextManager
 import discord
 import random
+import re
 from discord import activity
 from discord.activity import CustomActivity
 from dotenv import load_dotenv
@@ -24,22 +25,32 @@ async def on_ready():
 async def on_message(message):
     await bot.change_presence(activity=CustomActivity(name='Watching the money $'))
 
-    if message.author == bot.user:
-        return
-    
     await message.add_reaction('🇺🇸')
 
-    if 'America' in message.content or 'United States' in message.content:
-        await message.channel.send('History began on July 4, 1776. Everything before that was a mistake.')
-
-    elif 'fireworks' in message.content:
-        await message.channel.send(file=discord.File(r'E:/Memes/fireworks.gif'))
-
-    elif 'gun' in message.content or 'guns' in message.content:
-        await message.channel.send(file=discord.File(r'E:/Memes/guns.gif'))
-
+    if message.author == bot.user or message.content.startswith('$'):
+        return
+    
     if not '🇺🇸' in message.content:
         await message.reply('Pretty cringe ngl. You dropped this :flag_us:')
+
+    communism=re.compile(r'communi|commi',re.I)
+    america=re.compile(r'america|United States',re.I)
+    fireworks=re.compile(r'firework',re.I)
+    guns=re.compile(r'gun',re.I)
+
+    if communism.search(message.content):
+        await message.channel.send(file=discord.File(r'E:/Memes/communism1.gif'))
+
+    if america.search(message.content):
+        await message.channel.send('History began on July 4, 1776. Everything before that was a mistake.')
+
+    if fireworks.search(message.content):
+        await message.channel.send(file=discord.File(r'E:/Memes/fireworks.gif'))
+
+    if guns.search(message.content):
+        await message.channel.send(file=discord.File(r'E:/Memes/guns.gif'))
+
+    print(message.content)
 
     await bot.process_commands(message)
 
