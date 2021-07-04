@@ -50,8 +50,6 @@ async def on_message(message):
     if guns.search(message.content):
         await message.channel.send(file=discord.File(r'E:/Memes/guns.gif'))
 
-    print(message.content)
-
     await bot.process_commands(message)
 
 
