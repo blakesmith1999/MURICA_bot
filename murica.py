@@ -38,6 +38,9 @@ async def on_message(message):
     elif 'gun' in message.content or 'guns' in message.content:
         await message.channel.send(file=discord.File(r'E:/Memes/guns.gif'))
 
+    if not '🇺🇸' in message.content:
+        await message.reply('Pretty cringe ngl. You dropped this :flag_us:')
+
     await bot.process_commands(message)
 
 
