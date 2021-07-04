@@ -23,11 +23,10 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-    await bot.change_presence(activity=CustomActivity(name='Watching the money $'))
-
     await message.add_reaction('🇺🇸')
 
     if message.author == bot.user or message.content.startswith('$'):
+        await bot.process_commands(message)
         return
     
     if not '🇺🇸' in message.content:
