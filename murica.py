@@ -2,6 +2,8 @@ import os
 from typing import ContextManager
 import discord
 import random
+from discord import activity
+from discord.activity import CustomActivity
 from dotenv import load_dotenv
 from discord.ext import commands
 
@@ -9,16 +11,19 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 
-bot = commands.Bot(command_prefix='$', activity = discord.Streaming(name="the money", url="$"))
+bot = commands.Bot(command_prefix='$')
 
 @bot.event
 async def on_ready():
     guild = discord.utils.get(bot.guilds, name=GUILD)
     chnl=guild.system_channel
     await chnl.send(f'{bot.user.name} is here to liberate your oil')
+    
 
 @bot.event
 async def on_message(message):
+    await bot.change_presence(activity=CustomActivity(name='Watching the money $'))
+
     if message.author == bot.user:
         return
     
