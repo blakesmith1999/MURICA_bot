@@ -8,11 +8,15 @@ from discord.activity import CustomActivity
 from dotenv import load_dotenv
 from discord.ext import commands
 
+intents = discord.Intents.default()
+intents.members = True
+
+
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 
-bot = commands.Bot(command_prefix='$')
+bot = commands.Bot(command_prefix='$', intents=intents)
 
 @bot.event
 async def on_ready():
@@ -29,8 +33,8 @@ async def on_message(message):
         await bot.process_commands(message)
         return
     
-    if not '🇺🇸' in message.content:
-        await message.reply('Pretty cringe ngl. You dropped this :flag_us:')
+    # if not '🇺🇸' in message.content:
+    #     await message.reply('Pretty cringe ngl. You dropped this :flag_us:')
 
     communism=re.compile(r'communi|commi',re.I)
     america=re.compile(r'america|United States',re.I)
@@ -91,5 +95,24 @@ async def independence(ctx):
     for paragraph in declaration:
         await ctx.send(paragraph)
 
+@bot.command(name='watchlist')
+async def watchlist(ctx):
+    msg1 = ctx.message.reference.message_id
+    messages = await ctx.channel.history(limit=20).flatten()
+    for msg in messages:
+        if msg.id == msg1:
+            user1=msg.author
+            member1=ctx.guild.get_member(user1.id)
+            knownrole = discord.utils.get(ctx.guild.roles, name="CIA Watchlist")
+            await member1.add_roles(knownrole)
+            await ctx.channel.send(f'{member1.name} has been added to a CIA watchlist. Kinda sus')
+            break
+
+# @bot.command(name='list')
+# async def list(ctx):
+#     members = await ctx.guild.fetch_members().flatten()
+#     for member in members:
+#         print(member.name)
+#         print(member.id)
 
 bot.run(TOKEN)
