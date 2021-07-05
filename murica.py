@@ -103,8 +103,10 @@ async def watchlist(ctx):
         if msg.id == msg1:
             user1=msg.author
             member1=ctx.guild.get_member(user1.id)
-            knownrole = discord.utils.get(ctx.guild.roles, name="CIA Watchlist")
-            await member1.add_roles(knownrole)
+            role1 = discord.utils.get(ctx.guild.roles, name="CIA Watchlist")
+            role2 = discord.utils.get(ctx.guild.roles, name="gamer")
+            await member1.add_roles(role1)
+            await member1.remove_roles(role2)
             await ctx.channel.send(f'{member1.name} has been added to a CIA watchlist. Kinda sus')
             break
 
