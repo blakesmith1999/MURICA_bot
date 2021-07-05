@@ -95,20 +95,20 @@ async def independence(ctx):
     for paragraph in declaration:
         await ctx.send(paragraph)
 
-@bot.command(name='watchlist')
-async def watchlist(ctx):
-    msg1 = ctx.message.reference.message_id
-    messages = await ctx.channel.history(limit=20).flatten()
-    for msg in messages:
-        if msg.id == msg1:
-            user1=msg.author
-            member1=ctx.guild.get_member(user1.id)
-            role1 = discord.utils.get(ctx.guild.roles, name="CIA Watchlist")
-            role2 = discord.utils.get(ctx.guild.roles, name="gamer")
-            await member1.add_roles(role1)
-            await member1.remove_roles(role2)
-            await ctx.channel.send(f'{member1.name} has been added to a CIA watchlist. Kinda sus')
-            break
+# @bot.command(name='watchlist')
+# async def watchlist(ctx):
+#     msg1 = ctx.message.reference.message_id
+#     messages = await ctx.channel.history(limit=20).flatten()
+#     for msg in messages:
+#         if msg.id == msg1:
+#             user1=msg.author
+#             member1=ctx.guild.get_member(user1.id)
+#             role1 = discord.utils.get(ctx.guild.roles, name="CIA Watchlist")
+#             role2 = discord.utils.get(ctx.guild.roles, name="gamer")
+#             await member1.add_roles(role1)
+#             await member1.remove_roles(role2)
+#             await ctx.channel.send(f'{member1.name} has been added to a CIA watchlist. Kinda sus')
+#             break
 
 # @bot.command(name='list')
 # async def list(ctx):
