@@ -1,10 +1,7 @@
 import os
-from typing import ContextManager
 import discord
 import random
 import re
-from discord import activity
-from discord.activity import CustomActivity
 from dotenv import load_dotenv
 from discord.ext import commands
 
@@ -40,6 +37,7 @@ async def on_message(message):
     america=re.compile(r'america|United States',re.I)
     fireworks=re.compile(r'firework',re.I)
     guns=re.compile(r'gun',re.I)
+    banana=re.compile(r'banana',re.I)
 
     if communism.search(message.content):
         await message.channel.send(file=discord.File(r'E:/Memes/communism1.gif'))
@@ -52,6 +50,9 @@ async def on_message(message):
 
     if guns.search(message.content):
         await message.channel.send(file=discord.File(r'E:/Memes/guns.gif'))
+
+    if banana.search(message.content):
+        await message.channel.send(file=discord.File(r'E:/Memes/cronch_loudest.mp4'))
 
     await bot.process_commands(message)
 
